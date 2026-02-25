@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tamilselvi | Full Stack Developer</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* (your existing styles – unchanged) */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+        color: white;
+        overflow-x: hidden;
+        background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+          url("https://www.michaelpage.nl/sites/michaelpage.nl/files/2021-11/Full%20Stack%20Developer.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+      }
+      nav {
+        position: fixed;
+        width: 100%;
+        padding: 15px 10%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+      }
+      nav h2 {
+        background: linear-gradient(45deg, #00f2fe, #ff00cc);
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 25px;
+      }
+      nav ul li a {
+        text-decoration: none;
+        color: white;
+        transition: 0.3s;
+      }
+      nav ul li a:hover {
+        color: #00f2fe;
+      }
+      section {
+        min-height: 100vh;
+        padding: 100px 10%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .home {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 80px;
+        flex-direction: row;
+      }
+
+      .home-content {
+        flex: 1;
+      }
+
+      .profile {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      @media (max-width: 900px) {
+        .home {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .profile {
+          justify-content: center;
+          margin-top: 30px;
+        }
+      }
+      .home-content h1 {
+        font-size: 3rem;
+      }
+      .typing {
+        color: #00f2fe;
+        font-weight: bold;
+      }
+      .home-content p {
+        margin-top: 20px;
+        font-size: 1.2rem;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 15px 25px;
+        border-radius: 30px;
+        backdrop-filter: blur(8px);
+      }
+      .profile img {
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid #00f2fe;
+        box-shadow: 0 0 40px #00f2fe;
+        animation: float 5s infinite ease-in-out;
+      }
+      @keyframes float {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+      h2.section-title {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 2.5rem;
+        background: linear-gradient(45deg, #00f2fe, #ff00cc);
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+      .skills-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 80px;
+      }
+      .skill {
+        background: rgba(255, 255, 255, 0.08);
+        padding: 25px;
+        border-radius: 20px;
+        backdrop-filter: blur(8px);
+        transition: 0.4s;
+        text-align: center;
+      }
+      .skill:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 242, 254, 0.4);
+      }
+      .project {
+        background: rgba(255, 255, 255, 0.08);
+        padding: 25px;
+        border-radius: 20px;
+        margin-bottom: 25px;
+        transition: 0.4s;
+      }
+      .project:hover {
+        transform: scale(1.03);
+        box-shadow: 0 20px 40px rgba(255, 0, 204, 0.4);
+      }
+      .contact {
+        text-align: center;
+      }
+      .contact a {
+        color: #00f2fe;
+        text-decoration: none;
+        font-size: 1.1rem;
+      }
+      /* Chatbot styles */
+      #chatbot-icon {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        background: #00f2fe;
+        color: black;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        cursor: pointer;
+        box-shadow: 0 0 20px #00f2fe;
+        z-index: 1000;
+      }
+      #chatbot {
+        position: fixed;
+        bottom: 100px;
+        right: 25px;
+        width: 320px;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        z-index: 1000;
+      }
+      .chat-header {
+        background: #00f2fe;
+        color: black;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        font-weight: bold;
+      }
+      .chat-body {
+        height: 250px;
+        padding: 10px;
+        overflow-y: auto;
+        font-size: 14px;
+      }
+      .chat-footer {
+        display: flex;
+        border-top: 1px solid #333;
+      }
+      .chat-footer input {
+        flex: 1;
+        padding: 8px;
+        border: none;
+        outline: none;
+      }
+      .chat-footer button {
+        padding: 8px 12px;
+        border: none;
+        background: #ff00cc;
+        color: white;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <h2><i class="fa-solid fa-code"></i> Tamilselvi</h2>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <section id="home" class="home">
+      <div class="home-content">
+        <h1>Hello, I'm Tamilselvi</h1>
+        <br />
+        <h3>I am a <span class="typing"></span></h3>
+        <br />
+        <p>
+          ✨ Passionate Full Stack Developer building modern websites and
+          intelligent applications.
+        </p>
+      </div>
+      <div class="profile">
+        <img src="image.png" alt="Profile Photo" />
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2 class="section-title">Skills</h2>
+      <div class="skills-container">
+        <div class="skill">HTML, CSS, JavaScript</div>
+        <br />
+        <div class="skill">React & Node.js</div>
+        <br />
+        <div class="skill">Python & Machine Learning</div>
+        <br />
+        <div class="skill">MongoDB & SQL</div>
+        <br />
+        <div class="skill">Git & GitHub</div>
+        <br />
+        <div class="skill">UI/UX Design</div>
+        <br />
+        <div class="skill">Data Structures & Algorithms</div>
+        <br />
+        <div class="skill">Devops</div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2 class="section-title">Projects</h2>
+      <div class="project" onclick="toggleProject(this)">
+        <h3>Bank Loan EMI Calculator</h3>
+        <p class="short">Real-time financial calculation web application.</p>
+        <p class="full" style="display: none">
+          The Bank Loan EMI Calculator is a dynamic web application that allows
+          users to calculate their monthly loan installments instantly based on
+          loan amount, interest rate, and tenure. It uses JavaScript for
+          real-time calculations without page refresh and provides accurate
+          financial results with a clean and user-friendly interface. This
+          project demonstrates strong skills in mathematical logic
+          implementation, DOM manipulation, and responsive UI design.
+        </p>
+      </div>
+      <br />
+      <br />
+      <div class="project" onclick="toggleProject(this)">
+        <h3>Job Portal Web Application</h3>
+        <p class="short">
+          Role-based job management system with authentication.
+        </p>
+        <p class="full" style="display: none">
+          The Job Portal Web Application is a full stack platform that allows
+          recruiters to post jobs and candidates to apply online. It includes
+          secure authentication, role-based access control, and database
+          integration for managing job listings and applications. Built using
+          modern frontend and backend technologies, this project highlights my
+          ability to design scalable systems, handle APIs, manage databases, and
+          implement secure login functionality.
+        </p>
+      </div>
+      <br />
+      <br />
+      <div class="project" onclick="toggleProject(this)">
+        <h3>Portfolio Website</h3>
+        <p class="short">
+          Modern responsive personal portfolio with animations.
+        </p>
+        <p class="full" style="display: none">
+          This Portfolio Website is a modern and fully responsive personal
+          branding platform designed to showcase my technical skills, projects,
+          and professional profile. It includes smooth scrolling navigation,
+          animated typing effects, glassmorphism design elements, and responsive
+          layouts. The project demonstrates my frontend development expertise,
+          UI creativity, and ability to build visually engaging and professional
+          web interfaces.
+        </p>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2 class="section-title">Contact</h2>
+      <p>
+        <i class="fa-brands fa-linkedin"></i>
+        <a href="https://www.linkedin.com/in/tamilselvi06" target="_blank"
+          >www.linkedin.com/in/tamilselvi06</a
+        >
+      </p>
+      <br />
+      <p>
+        <i class="fa-solid fa-envelope"></i>
+        <a href="mailto:tamilselvigopi06@gmail.com"
+          >tamilselvigopi06@gmail.com</a
+        >
+      </p>
+    </section>
+
+    <!-- Chatbot -->
+    <div id="chatbot-icon" onclick="toggleChatbot()">
+      <i class="fa-solid fa-comments"></i>
+    </div>
+    <div id="chatbot">
+      <div class="chat-header">
+        <span>Assistant</span
+        ><i class="fa-solid fa-xmark" onclick="toggleChatbot()"></i>
+      </div>
+      <div class="chat-body" id="chatBody"></div>
+      <div class="chat-footer">
+        <input type="text" id="userInput" placeholder="Type a message..." />
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+
+    <script>
+      // Typing effect
+      const roles = [
+        "Full Stack Developer",
+        "AI Developer",
+        "Frontend Designer",
+        "Problem Solver",
+      ];
+      let roleIndex = 0,
+        charIndex = 0,
+        currentRole = "",
+        isDeleting = false;
+      const typingElement = document.querySelector(".typing");
+
+      function type() {
+        currentRole = roles[roleIndex];
+        if (!isDeleting) {
+          typingElement.textContent = currentRole.substring(0, charIndex++);
+          if (charIndex > currentRole.length) {
+            isDeleting = true;
+            setTimeout(type, 1000);
+            return;
+          }
+        } else {
+          typingElement.textContent = currentRole.substring(0, charIndex--);
+          if (charIndex < 0) {
+            isDeleting = false;
+            roleIndex = (roleIndex + 1) % roles.length;
+          }
+        }
+        setTimeout(type, isDeleting ? 50 : 100);
+      }
+      type();
+
+      // Project toggle
+      function toggleProject(project) {
+        const fullText = project.querySelector(".full");
+        fullText.style.display =
+          fullText.style.display === "none" ? "block" : "none";
+      }
+
+      // Chatbot functions
+      function toggleChatbot() {
+        const bot = document.getElementById("chatbot");
+        bot.style.display = bot.style.display === "flex" ? "none" : "flex";
+      }
+
+      function sendMessage() {
+        const input = document.getElementById("userInput");
+        const chatBody = document.getElementById("chatBody");
+        const message = input.value.trim();
+        if (message === "") return;
+
+        // Display user message
+        chatBody.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
+        input.value = "";
+
+        // Generate reply (always responds)
+        const lowerMsg = message.toLowerCase();
+        let reply = "";
+
+        if (lowerMsg.includes("who is") && lowerMsg.includes("tamilselvi")) {
+          reply =
+            "Tamilselvi is a passionate Full Stack Developer skilled in modern web technologies and AI. She loves building intelligent applications and clean user interfaces.";
+        } else if (
+          lowerMsg.includes("skill") ||
+          lowerMsg.includes("technologies") ||
+          lowerMsg.includes("know")
+        ) {
+          reply =
+            "Her skills include: HTML, CSS, JavaScript, React, Node.js, Python, Machine Learning, MongoDB, SQL, Git, UI/UX Design, Bootstrap, PowerBI, Data Structures & Algorithms, and DevOps.";
+        } else if (
+          lowerMsg.includes("project") ||
+          lowerMsg.includes("work") ||
+          lowerMsg.includes("built")
+        ) {
+          reply =
+            "She has built three main projects: (1) Bank Loan EMI Calculator – a real‑time financial tool, (2) Job Portal Web Application – a full‑stack platform with authentication, and (3) this Portfolio Website. Click on any project in the Projects section to read more!";
+        } else if (
+          lowerMsg.includes("contact") ||
+          lowerMsg.includes("email") ||
+          lowerMsg.includes("linkedin") ||
+          lowerMsg.includes("reach")
+        ) {
+          reply =
+            "You can contact Tamilselvi via LinkedIn: www.linkedin.com/in/tamilselvi06, or email: tamilselvigopi06@gmail.com.";
+        } else if (
+          lowerMsg.includes("experience") ||
+          lowerMsg.includes("background")
+        ) {
+          reply =
+            "Tamilselvi is a Full Stack Developer with experience in building responsive websites and web applications. She also has knowledge in AI and machine learning, and is passionate about solving real‑world problems with code.";
+        } else if (
+          lowerMsg.includes("hello") ||
+          lowerMsg.includes("hi") ||
+          lowerMsg.includes("hey")
+        ) {
+          reply =
+            "Hello! I'm Tamilselvi's virtual assistant. Feel free to ask me about her skills, projects, or how to contact her.";
+        } else if (lowerMsg.includes("thank")) {
+          reply = "You're very welcome! If you have more questions, just ask.";
+        } else {
+          // Fallback for anything else
+          reply =
+            "I'm here to help you learn more about Tamilselvi. You can ask about her skills, projects, experience, or contact details. What would you like to know?";
+        }
+
+        chatBody.innerHTML += `<p><strong>Assistant:</strong> ${reply}</p>`;
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
+    </script>
+  </body>
+</html>
